@@ -31,6 +31,10 @@ class SolutionSpider(scrapy.Spider):
         def process_message(message):
             processed_message = []
 
+            """
+            "<div class=\"bbWrapper\"><code class=\"bbCodeInline\">ogr1</code>'in türünü <code class=\"bbCodeInline\">Okul</code> yapmışsınız. Okul classında <code class=\"bbCodeInline\">getDevamsizlik()</code> metodu yok ki. Onu da <code class=\"bbCodeInline\">ogrenci</code> yapın.</div>"
+            """
+
             
 
 
