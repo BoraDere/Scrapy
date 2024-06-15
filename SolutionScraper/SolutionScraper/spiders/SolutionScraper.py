@@ -1,4 +1,5 @@
 import scrapy
+from ..helper import Helper
 
 class SolutionSpider(scrapy.Spider):
     name = 'solutionscraper'
@@ -28,27 +29,18 @@ class SolutionSpider(scrapy.Spider):
 
     def parse_solution(self, response):
 
-        def process_message(message):
-            processed_message = []
-
-            """
-            "<div class=\"bbWrapper\"><code class=\"bbCodeInline\">ogr1</code>'in türünü <code class=\"bbCodeInline\">Okul</code> yapmışsınız. Okul classında <code class=\"bbCodeInline\">getDevamsizlik()</code> metodu yok ki. Onu da <code class=\"bbCodeInline\">ogrenci</code> yapın.</div>"
-            """
-
-            
-
-
         link = response.meta['link']
         title = response.css('div.p-title').xpath('//h1/text()').get()
         solution = response.css('article.message.message--post.message--solution.js-post.js-inlineModContainer')
         raw_message = solution.css('div.bbWrapper').get()
+        processed_message = Helper.process_message(raw_message)
         datetime = solution.css('time.u-dt::attr(datetime)').get()
         datetime_str = solution.css('time.u-dt::attr(title)').get()
 
         yield {
             'link': link,
             'title': title,
-            'raw_message': raw_message,
+            'processed_message': processed_message,
         }
 
 
